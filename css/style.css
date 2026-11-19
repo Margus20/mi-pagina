@@ -7,9 +7,14 @@
     --celeste: #0CB7F2;
     --celeste-oscuro: #0a9fd6;
 
-    /* Verde Matrix (se usa en botones e iconos en ambos temas) */
+    /* Verde Matrix (SOLO para modo oscuro) */
     --matrix-green: #00ff41;
     --matrix-green-dark: #00cc33;
+
+    /* Colores naturales de redes sociales */
+    --instagram: #E1306C;
+    --tiktok: #000000;
+    --telegram: #0088cc;
 
     /* Superficies y textos del tema claro: letras NEGRAS */
     --fondo: #FFFFFF;
@@ -18,15 +23,19 @@
     --texto-suave: #333333;
     --borde: #d9e0e8;
 
-    /* Elementos que cambian según el tema */
+    /* Header y footer en tema claro */
     --header-bg: #D93F07;
     --header-texto: #FFFFFF;
     --footer-bg: #004AAD;
     --footer-texto: #FFFFFF;
-    --btn-bg: #00ff41;
-    --btn-texto: #000000;
-    --btn-hover: #00cc33;
-    --outline: #00cc33;
+
+    /* Botones en tema claro: AZUL CIELO con texto blanco */
+    --btn-bg: #0CB7F2;
+    --btn-texto: #FFFFFF;
+    --btn-hover: #0a9fd6;
+    --outline: #0CB7F2;
+
+    /* Otros colores de tema claro */
     --link-hover: #004AAD;
     --typing-color: #004AAD;
     --stat-color: #004AAD;
@@ -34,22 +43,28 @@
     --cta-glow: rgba(0, 74, 173, 0.10);
 }
 
-/* ===== TEMA OSCURO: letras VERDES Matrix ===== */
+/* ===== TEMA OSCURO: estilo Matrix ===== */
 html.dark {
+    /* Superficies y textos: VERDES */
     --fondo: #0d1117;
     --fondo-suave: #161b22;
     --texto: #00ff41;
     --texto-suave: #00cc33;
     --borde: #2d333b;
 
-    --header-bg: rgba(13, 17, 23, 0.85);
+    /* Header y footer en modo oscuro: NEGRO */
+    --header-bg: #000000;
     --header-texto: #00ff41;
-    --footer-bg: #004AAD;
+    --footer-bg: #000000;
     --footer-texto: #00ff41;
+
+    /* Botones en modo oscuro: VERDES */
     --btn-bg: #00ff41;
     --btn-texto: #000000;
     --btn-hover: #00cc33;
     --outline: #00ff41;
+
+    /* Otros colores de tema oscuro */
     --link-hover: #00ff41;
     --typing-color: #00ff41;
     --stat-color: #00ff41;
@@ -62,7 +77,7 @@ html { scroll-behavior: smooth; }
 
 body {
     font-family: 'Nunito', 'Segoe UI', system-ui, sans-serif;
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 600;
     background: var(--fondo);
     color: var(--texto);
@@ -94,7 +109,6 @@ h1, h2, h3, .stat-number, .logo-text {
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25);
 }
 html.dark #navbar.scrolled {
-    background: #0d1117;
     box-shadow: 0 2px 12px rgba(0, 255, 65, 0.3);
 }
 .logo img {
@@ -113,6 +127,7 @@ html.dark #navbar.scrolled {
 }
 .nav-links a:hover { color: var(--amarillo); }
 html.dark .nav-links a { text-shadow: 0 0 5px rgba(0, 255, 65, 0.3); }
+html.dark .nav-links a:hover { color: #66ff88; }
 
 .nav-right { display: flex; align-items: center; gap: 1rem; }
 .theme-toggle {
@@ -179,11 +194,13 @@ html.dark .typing-text { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
 .btn-primary {
     background: var(--btn-bg);
     color: var(--btn-texto);
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
 }
 .btn-primary:hover {
     transform: translateY(-2px);
     background: var(--btn-hover);
+    box-shadow: 0 6px 18px rgba(12, 183, 242, 0.45);
+}
+html.dark .btn-primary:hover {
     box-shadow: 0 0 25px rgba(0, 255, 65, 0.7);
 }
 .btn-outline {
@@ -194,6 +211,8 @@ html.dark .typing-text { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
 .btn-outline:hover {
     background: var(--outline);
     color: var(--fondo);
+}
+html.dark .btn-outline:hover {
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
 }
 
@@ -217,6 +236,7 @@ html.dark .typing-text { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
     flex-direction: column;
     gap: 0.3rem;
 }
+html.dark .stat-card { border-top-color: #00ff41; }
 .stat-number {
     font-size: 2.6rem;
     color: var(--stat-color);
@@ -253,10 +273,14 @@ html.dark .section-title { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
 }
 .project-card:hover {
     transform: translateY(-6px);
-    border-left-color: var(--matrix-green);
+    border-left-color: var(--celeste);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
 }
-html.dark .project-card:hover { box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); }
+html.dark .project-card { border-left-color: #00ff41; }
+html.dark .project-card:hover {
+    border-left-color: #66ff88;
+    box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
+}
 .project-icon { font-size: 2.6rem; margin-bottom: 0.8rem; }
 .project-card h3 {
     margin-bottom: 0.6rem;
@@ -266,7 +290,7 @@ html.dark .project-card:hover { box-shadow: 0 0 20px rgba(0, 255, 65, 0.3); }
 html.dark .project-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
 .project-card p {
     color: var(--texto-suave);
-    font-size: 1rem;
+    font-size: 1.05rem;
 }
 
 /* ===== Historia ===== */
@@ -281,6 +305,7 @@ html.dark .project-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
     gap: 1rem;
     color: var(--texto-suave);
 }
+html.dark .story-card { border-left-color: #00ff41; }
 .story-card p { font-size: 1.05rem; }
 
 /* ===== Apoyo ===== */
@@ -307,7 +332,7 @@ html.dark .project-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
     color: var(--texto);
 }
 html.dark .support-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
-.support-card p { color: var(--texto-suave); font-size: 1rem; }
+.support-card p { color: var(--texto-suave); font-size: 1.05rem; }
 .cta-box {
     background: linear-gradient(135deg, var(--hero-glow), var(--cta-glow));
     border: 1px solid var(--borde);
@@ -329,9 +354,12 @@ footer {
     padding: 2rem 1.5rem;
     text-align: center;
     margin-top: 2rem;
+    transition: background 0.3s ease, color 0.3s ease;
 }
 footer p { font-size: 1.05rem; }
 html.dark footer p { text-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
+
+/* ===== Iconos de redes sociales ===== */
 .social-icons {
     display: flex;
     justify-content: center;
@@ -345,15 +373,18 @@ html.dark footer p { text-shadow: 0 0 10px rgba(0, 255, 65, 0.5); }
     width: 48px;
     height: 48px;
     border-radius: 12px;
-    color: var(--matrix-green);
-    background: var(--fondo);
-    border: 2px solid var(--matrix-green);
-    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s;
+    background: #FFFFFF;
+    border: 2px solid #d9e0e8;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
 }
-.social-icon:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 0 15px rgba(0, 255, 65, 0.6);
-}
+.social-icon:hover { transform: translateY(-3px); }
+
+/* Colores naturales en tema claro */
+.social-instagram { color: var(--instagram); }
+.social-tiktok { color: var(--tiktok); }
+.social-telegram { color: var(--telegram); }
+
+/* En modo oscuro: todos se vuelven verdes Matrix */
 html.dark .social-icon {
     background: var(--matrix-green);
     color: #000000;
