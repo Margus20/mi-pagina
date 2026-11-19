@@ -15,6 +15,22 @@ async function loadComponents() {
 
 // ===== Scripts que dependen del header ya cargado =====
 function initScripts() {
+    // Botón de cambio de tema (claro / oscuro)
+    const themeToggle = document.getElementById('themeToggle');
+    function actualizarIcono() {
+        const esOscuro = document.documentElement.classList.contains('dark');
+        themeToggle.textContent = esOscuro ? '☀️' : '🌙';
+    }
+    actualizarIcono();
+    if (themeToggle) {
+        themeToggle.addEventListener('click', () => {
+            document.documentElement.classList.toggle('dark');
+            const esOscuro = document.documentElement.classList.contains('dark');
+            localStorage.setItem('tema', esOscuro ? 'oscuro' : 'claro');
+            actualizarIcono();
+        });
+    }
+
     // Efecto del navbar al hacer scroll
     const navbar = document.getElementById('navbar');
     if (navbar) {
