@@ -29,11 +29,11 @@
     --footer-bg: #004AAD;
     --footer-texto: #FFFFFF;
 
-    /* Botones en tema claro: AZUL CIELO con texto blanco */
+    /* Botones en tema claro: AZUL CIELO con texto NEGRO */
     --btn-bg: #0CB7F2;
-    --btn-texto: #FFFFFF;
+    --btn-texto: #000000;
     --btn-hover: #0a9fd6;
-    --outline: #0CB7F2;
+    --outline: #F2CB05;
 
     /* Otros colores de tema claro */
     --link-hover: #004AAD;
@@ -131,8 +131,8 @@ html.dark .nav-links a:hover { color: #66ff88; }
 
 .nav-right { display: flex; align-items: center; gap: 1rem; }
 .theme-toggle {
-    background: rgba(0, 255, 65, 0.18);
-    border: 1px solid rgba(0, 255, 65, 0.35);
+    background: var(--naranja);
+    border: 2px solid var(--naranja);
     color: var(--header-texto);
     font-size: 1.1rem;
     width: 40px;
@@ -142,11 +142,19 @@ html.dark .nav-links a:hover { color: #66ff88; }
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s, border-color 0.2s;
 }
 .theme-toggle:hover {
-    background: rgba(0, 255, 65, 0.32);
+    background: #b83406;
     transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(217, 63, 7, 0.5);
+}
+html.dark .theme-toggle {
+    background: rgba(0, 255, 65, 0.18);
+    border-color: rgba(0, 255, 65, 0.35);
+}
+html.dark .theme-toggle:hover {
+    background: rgba(0, 255, 65, 0.32);
     box-shadow: 0 0 15px rgba(0, 255, 65, 0.5);
 }
 
@@ -210,7 +218,7 @@ html.dark .btn-primary:hover {
 }
 .btn-outline:hover {
     background: var(--outline);
-    color: var(--fondo);
+    color: #000000;
 }
 html.dark .btn-outline:hover {
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
@@ -290,7 +298,7 @@ html.dark .project-card:hover {
 html.dark .project-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
 .project-card p {
     color: var(--texto-suave);
-    font-size: 1.05rem;
+    font-size: 1.2rem;
 }
 
 /* ===== Historia ===== */
@@ -306,7 +314,7 @@ html.dark .project-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
     color: var(--texto-suave);
 }
 html.dark .story-card { border-left-color: #00ff41; }
-.story-card p { font-size: 1.05rem; }
+.story-card p { font-size: 1.2rem; }
 
 /* ===== Apoyo ===== */
 .support-options {
@@ -332,7 +340,7 @@ html.dark .story-card { border-left-color: #00ff41; }
     color: var(--texto);
 }
 html.dark .support-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
-.support-card p { color: var(--texto-suave); font-size: 1.05rem; }
+.support-card p { color: var(--texto-suave); font-size: 1.2rem; }
 .cta-box {
     background: linear-gradient(135deg, var(--hero-glow), var(--cta-glow));
     border: 1px solid var(--borde);
@@ -344,7 +352,7 @@ html.dark .support-card h3 { text-shadow: 0 0 8px rgba(0, 255, 65, 0.4); }
     align-items: center;
     gap: 1.2rem;
 }
-.cta-box p { color: var(--texto); font-size: 1.15rem; }
+.cta-box p { color: var(--texto); font-size: 1.3rem; }
 html.dark .cta-box p { text-shadow: 0 0 10px rgba(0, 255, 65, 0.4); }
 
 /* ===== Footer ===== */
