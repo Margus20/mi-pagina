@@ -1,124 +1,104 @@
-// Menú móvil
-const menuToggle = document.getElementById('menuToggle');
-const navLinks = document.getElementById('navLinks');
+// ===== Carga del header y footer desde la carpeta components =====
+async function loadComponents() {
+    try {
+        const [headerRes, footerRes] = await Promise.all([
+            fetch('components/header.html'),
+            fetch('components/footer.html')
+        ]);
+        document.getElementById('header-placeholder').innerHTML = await headerRes.text();
+        document.getElementById('footer-placeholder').innerHTML = await footerRes.text();
+    } catch (err) {
+        console.error('Error al cargar componentes:', err);
+    }
+    initScripts();
+}
 
-if (menuToggle && navLinks) {
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
-    });
-
-    document.querySelectorAll('.nav-links a').forEach(link => {
-        link.addEventListener('click', () => {
-            navLinks.classList.remove('active');
+// ===== Scripts que dependen del header ya cargado =====
+function initScripts() {
+    // Efecto del navbar al hacer scroll
+    const navbar = document.getElementById('navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
-    });
-}
-
-// Navbar cambia al hacer scroll
-const navbar = document.getElementById('navbar');
-if (navbar) {
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
-        }
-    });
-}
-
-// Efecto de escritura tipo máquina
-const textos = [
-    'Desarrollador de bots de Telegram',
-    'Experto en automatización con GitHub Actions',
-    'Creador de contenido digital',
-    'Diseñador de videos de invitación'
-];
-let textoIndex = 0;
-let charIndex = 0;
-let isDeleting = false;
-const typingElement = document.getElementById('typingText');
-
-function typeEffect() {
-    if (!typingElement) return;
-    
-    const textoActual = textos[textoIndex];
-    
-    if (isDeleting) {
-        typingElement.textContent = textoActual.substring(0, charIndex - 1);
-        charIndex--;
-    } else {
-        typingElement.textContent = textoActual.substring(0, charIndex + 1);
-        charIndex++;
     }
 
-    let speed = isDeleting ? 50 : 100;
-
-    if (!isDeleting && charIndex === textoActual.length) {
-        speed = 2000;
-        isDeleting = true;
-    } else if (isDeleting && charIndex === 0) {
-        isDeleting = false;
-        textoIndex = (textoIndex + 1) % textos.length;
-        speed = 500;
+    // Menú hamburguesa en móviles
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            menuToggle.classList.toggle('active');
+        });
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                menuToggle.classList.remove('active');
+            });
+        });
     }
 
-    setTimeout(typeEffect, speed);
-}
-
-typeEffect();
-
-// Scroll reveal - las secciones aparecen al hacer scroll
-const reveals = document.querySelectorAll('.reveal');
-
-function checkReveal() {
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const revealPoint = 100;
-
-        if (elementTop < windowHeight - revealPoint) {
-            element.classList.add('active');
-        }
-    });
-}
-
-window.addEventListener('scroll', checkReveal);
-checkReveal();
-
-// Contadores animados
-const counters = document.querySelectorAll('.stat-number');
-let countersStarted = false;
-
-function startCounters() {
-    if (countersStarted) return;
-    
-    const statsSection = document.querySelector('.stats');
-    if (!statsSection) return;
-    
-    const rect = statsSection.getBoundingClientRect();
-    
-    if (rect.top < window.innerHeight && rect.bottom > 0) {
-        countersStarted = true;
-        counters.forEach(counter => {
-            const target = +counter.getAttribute('data-target');
-            const duration = 2000;
-            const increment = target / (duration / 16);
-            let current = 0;
-
-            const updateCounter = () => {
-                current += increment;
-                if (current < target) {
-                    counter.textContent = Math.ceil(current);
-                    requestAnimationFrame(updateCounter);
-                } else {
-                    counter.textContent = target;
+    // Efecto de escritura en el hero
+    const typingText = document.getElementById('typingText');
+    if (typingText) {
+        const frases = [
+            'Creador de bots para Telegram',
+            'Automatización 24/7 desde la nube',
+            'Diseñador de invitaciones digitales',
+            'Emprendedor digital venezolano'
+        ];
+        let indiceFrase = 0, indiceLetra = 0, borrando = false;
+        function escribir() {
+            const frase = frases[indiceFrase];
+            typingText.textContent = frase.substring(0, indiceLetra);
+            if (!borrando) {
+                indiceLetra++;
+                if (indiceLetra > frase.length) { borrando = true; setTimeout(escribir, 2000); return; }
+            } else {
+                indiceLetra--;
+                if (indiceLetra < 0) {
+                    borrando = false;
+                    indiceLetra = 0;
+                    indiceFrase = (indiceFrase + 1) % frases.length;
                 }
-            };
-
-            updateCounter();
-        });
+            }
+            setTimeout(escribir, borrando ? 40 : 90);
+        }
+        escribir();
     }
+
+    // Contadores animados de estadísticas
+    const contadores = document.querySelectorAll('.stat-number');
+    const obsContador = new IntersectionObserver((entradas) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                const el = entrada.target;
+                const meta = +el.getAttribute('data-target');
+                let valor = 0;
+                const paso = Math.max(1, Math.ceil(meta / 50));
+                const timer = setInterval(() => {
+                    valor += paso;
+                    if (valor >= meta) { el.textContent = meta; clearInterval(timer); }
+                    else { el.textContent = valor; }
+                }, 30);
+                obsContador.unobserve(el);
+            }
+        });
+    }, { threshold: 0.5 });
+    contadores.forEach(c => obsContador.observe(c));
+
+    // Animaciones de aparición al hacer scroll
+    const reveals = document.querySelectorAll('.reveal');
+    const obsReveal = new IntersectionObserver((entradas) => {
+        entradas.forEach(entrada => {
+            if (entrada.isIntersecting) {
+                entrada.target.classList.add('visible');
+                obsReveal.unobserve(entrada.target);
+            }
+        });
+    }, { threshold: 0.15 });
+    reveals.forEach(r => obsReveal.observe(r));
 }
 
-window.addEventListener('scroll', startCounters);
-startCounters();
+document.addEventListener('DOMContentLoaded', loadComponents);
