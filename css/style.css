@@ -211,16 +211,26 @@ html.dark .typing-text { text-shadow: 0 0 15px rgba(0, 255, 65, 0.5); }
 html.dark .btn-primary:hover {
     box-shadow: 0 0 25px rgba(0, 255, 65, 0.7);
 }
+
+/* Botón amarillo SÓLIDO en tema claro, contorno verde en modo oscuro */
 .btn-outline {
+    border: 2px solid var(--outline);
+    color: #000000;
+    background: var(--outline);
+}
+.btn-outline:hover {
+    background: #d9b504;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(242, 203, 5, 0.5);
+}
+html.dark .btn-outline {
     border: 2px solid var(--outline);
     color: var(--outline);
     background: transparent;
 }
-.btn-outline:hover {
+html.dark .btn-outline:hover {
     background: var(--outline);
     color: #000000;
-}
-html.dark .btn-outline:hover {
     box-shadow: 0 0 20px rgba(0, 255, 65, 0.5);
 }
 
